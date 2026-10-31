@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="../../_app/immutable/entry/start.BCHZXiEB.js" rel="modulepreload">
-		<link href="../../_app/immutable/chunks/DjGeDj5B.js" rel="modulepreload">
+    <link href="../../_app/immutable/entry/start.C60nNJ8e.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/CMoh4ZU8.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/W8JXJZ79.js" rel="modulepreload">
-		<link href="../../_app/immutable/entry/app.B3ye-fDi.js" rel="modulepreload">
+		<link href="../../_app/immutable/entry/app.ZKQTlV7G.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/xihTtKlq.js" rel="modulepreload">
 		<link href="../../_app/immutable/nodes/0.C46UDYLG.js" rel="modulepreload">
-		<link href="../../_app/immutable/nodes/5.DiUPbQc3.js" rel="modulepreload">
-		<link href="../../_app/immutable/chunks/ejctmR-Z.js" rel="modulepreload">
+		<link href="../../_app/immutable/nodes/5.Crm5pXnn.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/CVvQ-XX5.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/DooIRhXB.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/BqIY6Irz.js" rel="modulepreload">
 		<link href="../../_app/immutable/chunks/CrgYNgkp.js" rel="modulepreload">
@@ -32,9 +32,9 @@ swapped.</strong> A day-first date was read month first (“Our 7 April reminder
 one day.</strong> No swap at all (“Tuesday 6 October showed as Monday”; “Client in Lisbon got Tuesday.
 Client in Toronto got Monday.”). It looks like a time-zone conversion of the booking date.</li></ul> <aside class="warn svelte-17bri61"><!---->#4471 is not one issue. The queued fix covers the swap. The one-day moves stay open until #3 is fixed.<!----></aside><!----> <h2>What the desk’s table shows</h2> <p class="sum svelte-12oyimm"><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p> <table><thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr></thead><tbody><!--[--><tr class="svelte-12oyimm"><td class="svelte-12oyimm"><code>parser</code></td><td class="svelte-12oyimm">379</td><td class="tags svelte-12oyimm">parser ×356 · hint ×23</td><td class="svelte-12oyimm">11</td><td class="svelte-12oyimm">2026-04-01 → 2026-10-04</td><td class="svelte-12oyimm">#4471</td></tr><tr class="svelte-12oyimm wrong"><td class="svelte-12oyimm"><code>hint</code></td><td class="svelte-12oyimm">33</td><td class="tags svelte-12oyimm">hint ×18 · parser ×15</td><td class="svelte-12oyimm">3</td><td class="svelte-12oyimm">2026-04-17 → 2026-09-22</td><td class="svelte-12oyimm">not this ticket — no ticket of its own</td></tr><!--]--></tbody></table> <!--[--><!--[0--><p class="note svelte-12oyimm">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p><!--]--><!--[-1--><!--]--><!--]--><!----> <p>How to read it against the tickets:</p> <ul><li><strong><code>parser</code> and <code>hint</code> are one problem, #1.</strong> The table splits them by channel and booking form.
 The reports in both rows show the same swap, whichever way they came in; the booking-v3 form’s <code>MM/DD/YYYY</code> hint is part of the fix, not a problem of its own.</li> <li><strong>The footnote is #3.</strong> The table counts the one-day moves under <code>parser</code> because of their tenant.
-Swapping day and month never moves a date by one day, so the swap fix cannot close them.</li> <li><strong>#1 covers both rows, counted as the table counts them. #3 covers the footnote.</strong></li> <li>The “tagged as” column is intake’s guess from the reporter’s browser. It does not tell the two
-problems apart, and neither does the subject line. Read the body.</li></ul> <h2>How the count was made</h2> <ol><li>Count with the desk’s own table, as it was exported: one report per id, each under the cause it
-is filed under.</li> <li><code>parser</code> and <code>hint</code> are both #1.</li> <li>The footnote, the reports the desk read as a one-day move (<code>desk-notes.json</code>), is #3.</li></ol> <h2>What this changes</h2> <ul><li>#4471 is not “known, one fix queued”. The queued fix covers #1. #3 needs its own fix and its own
+Swapping day and month never moves a date by one day, so the swap fix cannot close them.</li> <li><strong>#1 covers every row of the export less the footnote’s reports. #3 covers the footnote.</strong></li> <li>The “tagged as” column is intake’s guess from the reporter’s browser. It does not tell the two
+problems apart, and neither does the subject line. Read the body.</li></ul> <h2>How the count was made</h2> <ol><li>Count the export of #4471 as it was exported, row by row. The export pages overlap, so some ids
+come twice; each row counts.</li> <li>Take out the rows the desk read as a one-day move (<code>desk-notes.json</code>): #3.</li> <li>Every other row comes from a day-first tenant and shows, or describes, the swap: #1.</li></ol> <h2>What this changes</h2> <ul><li>#4471 is not “known, one fix queued”. The queued fix covers #1. #3 needs its own fix and its own
 owner.</li> <li>Merging on the subject alone (<a href="/kb/decisions/0001-dedupe-by-subject">decision 0001</a>) cannot keep
 these apart. That decision stays as it is; a new record should replace it.</li></ul> <!--[0--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-JBE7-8HSK</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!--]--><!----><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
 		</div>
