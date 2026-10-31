@@ -14,11 +14,12 @@ signature: 'luca-gugs'
 </script>
 
 [#4471](/kb/incidents/4471) was merged as one issue: the parser reads dates month first, and our
-tenants write the day first. Its own table already disagrees. Read report by report, the merged
-reports show two problems, and the queued parser fix closes only one of them.
+tenants write the day first. Read report by report, the merged reports show two problems, and the
+queued fix closes only one of them.
 
 <Callout kind="warn">
-#4471 is not one issue. Each problem below has its own ticket now. The parser fix leaves the form open.
+#4471 is not one issue. Each problem below has its own ticket now. The date-order fix leaves the
+one-day moves open.
 </Callout>
 
 ## What the reports show
@@ -26,41 +27,39 @@ reports show two problems, and the queued parser fix closes only one of them.
 <ProblemTable
   ticket={4471}
   tickets={{
-    parser: 'https://github.com/luca-gugs/what-it-shows/issues/1',
-    hint: 'https://github.com/luca-gugs/what-it-shows/issues/2',
+    swap: 'https://github.com/luca-gugs/what-it-shows/issues/1',
+    shift: 'https://github.com/luca-gugs/what-it-shows/issues/3',
   }}
 />
 
 ## How to tell them apart
 
-- **`parser`**: the report shows a day/month swap ("Our 7 April reminder went out on 4 July"), and
-  it came in by app or email, or through a booking-v2 form. The shared parser read a day-first date
-  month first.
-- **`hint`**: the same swap, but it came in through a booking-v3 form. That form prints
-  `MM/DD/YYYY` under its date field, so people type the month first, and the form then reads the
-  date the tenant's way, day first. The fix belongs in the form, so the parser fix does not touch it.
+- **`swap`**: the report shows day and month swapped ("Our 7 April reminder went out on 4 July"). A
+  day-first date was read month first. `causes.ts` splits these into `parser` and `hint` by channel
+  and booking form, but the reports do not: they show the same swap, whichever way they came in. One
+  problem, one ticket. The booking-v3 form's `MM/DD/YYYY` hint is part of its fix.
+- **`shift`**: no swap at all. The date moves by one day: "Tuesday 6 October showed as Monday",
+  "Client in Lisbon got Tuesday. Client in Toronto got Monday." The desk read these as a one-day move
+  (`desk-notes.json`) but filed them under `parser` by tenant. Swapping day and month never moves a
+  date by one day, so the date-order fix cannot close them. It looks like a time-zone conversion of
+  the booking date.
 
-A few `parser` reports read as a one-day move, not a swap ("Tuesday 6 October showed as Monday";
-the desk lists them in `desk-notes.json`). By tenant and channel they are the parser's, so they are
-counted there. Check them again when the parser fix ships.
-
-The subject line does not tell the two apart: most subjects turn up under both. Read the tenant, the
-channel and the booking form.
+Neither the subject line nor the intake tag tells them apart. Read the body.
 
 ## How the count was made
 
 1. Take the export of #4471 and keep one report per id. The ticket system exports pages that
    overlap, so some reports come twice.
-2. Place each report by its tenant (locale and booking form) and its channel, as `causes.ts` does.
-   The intake tag is a guess from the reporter's browser, not the cause.
+2. Take out the reports the desk read as a one-day move: they are `shift`.
+3. Every other report comes from a day-first tenant and shows, or describes, the swap: `swap`.
 
-The numbers on this page are computed from the export when the page renders (`ProblemTable`, on
-`causes.ts`), so they follow the data as the desk keeps merging.
+The numbers on this page are computed from the export when the page renders
+(`#lib/kb/problems.ts`), so they follow the data as the desk keeps merging.
 
 ## What this changes
 
-- #4471 is not "known, one fix queued". The queued fix covers `parser`. `hint` needs its own fix in
-  the booking-v3 form, and its own owner.
+- #4471 is not "known, one fix queued". The queued fix covers `swap`. `shift` needs its own fix and
+  its own owner.
 - Merging on the subject alone ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) cannot keep
   these apart. That decision stays as it is; a new record should replace it.
 

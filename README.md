@@ -37,7 +37,7 @@ Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
 
 ## #4471, split (added 2026-10-30)
 
-Ticket #4471 merged 412 reports as one issue. The reports show two problems, each now its own
+Ticket #4471 merged 412 reports as one issue. The reports show two problems (a day/month swap and a one-day move), each its own
 issue in this repo. The page is `src/routes/kb/incidents/4471-split/+page.svx`; its numbers come from
 `src/lib/kb/problems.ts` and `src/lib/kb/ProblemTable.svelte`. Nothing else under `src/` changed.
 
