@@ -1,0 +1,70 @@
+---
+layout: runbook
+title: '#4471, split by what the reports show'
+owner: luca-gugs
+status: open
+reviewed: 2026-10-30
+signature: 'luca-gugs'
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+[#4471](/kb/incidents/4471) was merged as one issue: the parser reads dates month first, and our
+tenants write the day first. Its own table already disagrees. Read report by report, the merged
+reports show more than one problem, and the queued parser fix closes only one of them.
+
+<Callout kind="warn">
+#4471 is not one issue. Each problem below has its own ticket now. The parser fix leaves the others open.
+</Callout>
+
+## What the reports show
+
+<ProblemTable
+  ticket={4471}
+  tickets={{
+    parser: 'https://github.com/luca-gugs/what-it-shows/issues/1',
+    hint: 'https://github.com/luca-gugs/what-it-shows/issues/2',
+    shift: 'https://github.com/luca-gugs/what-it-shows/issues/3',
+  }}
+/>
+
+## How to tell them apart
+
+- **`parser`**: the report shows a day/month swap ("Our 7 April reminder went out on 4 July"), and
+  it came in by app or email, or through a booking-v2 form. The shared parser read a day-first date
+  month first.
+- **`hint`**: the same swap, but it came in through a booking-v3 form. That form prints
+  `MM/DD/YYYY` under its date field, so people type the month first, and the form then reads the
+  date the tenant's way, day first. The fix belongs in the form, so the parser fix does not touch it.
+- **`shift`**: no swap at all. The date moves by one day: "Tuesday 6 October showed as Monday",
+  "Client in Lisbon got Tuesday. Client in Toronto got Monday." The desk read these as a one-day move
+  (`desk-notes.json`) but filed them under `parser` by tenant. Swapping day and month never moves a
+  date by one day, so the parser fix cannot close them. It looks like a time-zone conversion of the
+  booking date.
+
+The subject line does not tell them apart: most subjects turn up under more than one problem. Read
+the body, the tenant and the channel.
+
+## How the count was made
+
+1. Take the export of #4471 and keep one report per id. The ticket system exports pages that
+   overlap, so some reports come twice.
+2. Place each report by its tenant (locale and booking form) and its channel, as `causes.ts` does.
+   The intake tag is a guess from the reporter's browser, not the cause.
+3. Take the reports the desk read as a one-day move out of `parser`. They are `shift`.
+
+The numbers on this page are computed from the export when the page renders
+(`#lib/kb/problems.ts`), so they follow the data as the desk keeps merging.
+
+## What this changes
+
+- #4471 is not "known, one fix queued". The queued fix covers `parser`. `hint` and `shift` need
+  their own fixes and their own owners.
+- Merging on the subject alone ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) cannot keep
+  these apart. That decision stays as it is; a new record should replace it.
+
+<RenderStamp {signature} />
