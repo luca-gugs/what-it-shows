@@ -39,8 +39,10 @@ Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
 
 Ticket #4471 merged 412 reports as one issue. The reports show two problems (a day/month swap and a
 one-day move), each its own issue in this repo. The page is
-`src/routes/kb/incidents/4471-split/+page.svx`. It uses only the desk's own components, as exported;
-nothing else under `src/` changed.
+`src/routes/kb/incidents/4471-split/+page.svx`. It uses only the desk's own components, as exported.
+The reports are re-filed in `src/lib/data/reports-4471.json`: `mergedInto` is now `1` (day/month
+swap, 407 reports) or `3` (one-day move, 5 reports) instead of `4471`, so the desk's `CauseTable`
+counts each ticket. Nothing else under `src/` changed.
 
 Build it: `npm install`, then `npm run snapshot`. That prerenders the kb into `build/` and writes
 the page as the desk sees it to `rendered/` (HTML with styles inline; the PNG is a screenshot of it).
