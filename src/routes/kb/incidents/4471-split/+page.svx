@@ -48,10 +48,14 @@ Neither the subject line nor the intake tag tells them apart. Read the body.
 
 ## How the count was made
 
+The desk's own view, as exported (`causes.ts`), does the counting:
+
 1. Take the export of #4471 and keep one report per id. The ticket system exports pages that
    overlap, so some reports come twice.
-2. Take out the reports the desk read as a one-day move: they are `shift`.
-3. Every other report comes from a day-first tenant and shows, or describes, the swap: `swap`.
+2. Count each report where the desk files it, by tenant, channel and booking form. Filed as
+   `parser` or as `hint`, it is `swap`.
+3. The reports the desk read as a one-day move stay counted where they're filed, with a footnote.
+   They are also `shift`, with a ticket of their own.
 
 The numbers on this page are computed from the export when the page renders
 (`#lib/kb/problems.ts`), so they follow the data as the desk keeps merging.
