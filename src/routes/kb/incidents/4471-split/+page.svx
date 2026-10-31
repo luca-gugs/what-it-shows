@@ -37,16 +37,17 @@ How to read it against the tickets:
   `MM/DD/YYYY` hint is part of the fix, not a problem of its own.
 - **The footnote is #3.** The table counts the one-day moves under `parser` because of their tenant.
   Swapping day and month never moves a date by one day, so the swap fix cannot close them.
-- **#1 covers every row of the export less the footnote's reports. #3 covers the footnote.**
+- **#1 covers the reports in both rows that give both dates, swapped. #3 covers the footnote.**
 - The "tagged as" column is intake's guess from the reporter's browser. It does not tell the two
   problems apart, and neither does the subject line. Read the body.
 
 ## How the count was made
 
-1. Count the export of #4471 as it was exported, row by row. The export pages overlap, so some ids
-   come twice; each row counts.
-2. Take out the rows the desk read as a one-day move (`desk-notes.json`): #3.
-3. Every other row comes from a day-first tenant and shows, or describes, the swap: #1.
+1. Take the export of #4471 and keep one report per id. The ticket system exports pages that
+   overlap, so some reports come twice.
+2. Take out the reports the desk read as a one-day move (`desk-notes.json`): #3.
+3. Of the rest, #1 counts the reports that give both dates and show day and month swapped. A few
+   only say the day was wrong; they are counted in neither ticket.
 
 ## What this changes
 
