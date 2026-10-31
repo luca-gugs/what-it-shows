@@ -35,11 +35,12 @@ Support desk. Decision records: whoever signed them.
 
 Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
 
-## #4471, split (added 2026-10-30)
+## #4471, split (added 2026-10-31)
 
-Ticket #4471 merged 412 reports as one issue. The reports show two problems (a day/month swap and a one-day move), each its own
-issue in this repo. The page is `src/routes/kb/incidents/4471-split/+page.svx`; its numbers come from
-`src/lib/kb/problems.ts` and `src/lib/kb/ProblemTable.svelte`. Nothing else under `src/` changed.
+Ticket #4471 merged 412 reports as one issue. The reports show two problems (a day/month swap and a
+one-day move), each its own issue in this repo. The page is
+`src/routes/kb/incidents/4471-split/+page.svx`. It uses only the desk's own components, as exported;
+nothing else under `src/` changed.
 
 Build it: `npm install`, then `npm run snapshot`. That prerenders the kb into `build/` and writes
 the page as the desk sees it to `rendered/` (HTML with styles inline; the PNG is a screenshot of it).
